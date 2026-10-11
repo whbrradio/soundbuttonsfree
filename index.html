@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🕹️ Arcade Soundboard</title>
+    <title>🕹️ Epic Arcade Soundboard</title>
     <style>
-        /* Retro Arcade Styling */
+        /* Retro Arcade Theme */
         body {
             background-color: #1a1a2e;
             color: #fff;
@@ -29,7 +29,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 25px;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         .sound-card {
@@ -56,16 +56,21 @@
             transform: translateY(6px);
             box-shadow: 0 2px 0 rgba(0,0,0,0.4);
         }
+        
         /* Arcade Colors */
-        .btn-red { background: #ff4757; border: 4px solid #ff6b81; }
-        .btn-green { background: #2ed573; border: 4px solid #7bed9f; }
-        .btn-blue { background: #1e90ff; border: 4px solid #70a1ff; }
-        .btn-yellow { background: #ffa502; border: 4px solid #eccc68; }
+        .btn-0 { background: #ff4757; border: 4px solid #ff6b81; } /* Red */
+        .btn-1 { background: #2ed573; border: 4px solid #7bed9f; } /* Green */
+        .btn-2 { background: #1e90ff; border: 4px solid #70a1ff; } /* Blue */
+        .btn-3 { background: #ffa502; border: 4px solid #eccc68; } /* Yellow */
 
         .sound-title {
             font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1rem;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
         .download-link {
             display: inline-block;
@@ -84,47 +89,289 @@
             color: #1a1a2e;
         }
     </style>
-    <script>
-        function playSound(id) {
-            let sound = document.getElementById(id);
-            sound.currentTime = 0; 
-            sound.play();
-        }
-    </script>
 </head>
 <body>
 
     <h1>🕹️ ARCADE SOUNDBOARD</h1>
     <p class="subtitle">Push to play! Click download to keep the file!</p>
 
-    <div class="soundboard-grid">
+    <!-- The website will automatically fill this grid up with buttons -->
+    <div class="soundboard-grid" id="soundboard"></div>
 
-        <!-- CARD 1 -->
-        <div class="sound-card">
-            <!-- No 'soundfx/' needed in the src anymore! -->
-            <audio id="snd-laser" src="laser.mp3"></audio>
-            <button class="push-button btn-red" onclick="playSound('snd-laser')"></button>
-            <div class="sound-title">Laser</div>
-            <a href="laser.mp3" download="Laser.mp3" class="download-link">💾 Download</a>
-        </div>
+    <script>
+        // 🚨 ADD ALL OF YOUR 250 FILENAMES HERE 🚨
+        // Put quote marks around each one, and separate them with commas.
+        const soundFiles = [
+            "000000000000000000 ooo maga.mp3",
+            "1-108.mp3",
+            "9-10-vine.mp3",
+            "ack.mp3",
+            "Ahh Soundboard.mp3",
+            "AirPods Low Battery Sound.mp3",
+            "all-my-fellaz.mp3",
+            "among_us_trap_remix_bass_boosted_leonz_8455886905626474145-mp3cut.mp3",
+            "anderdingus.mp3",
+            "Anime_WOW_-_Sound_Effect_HD_(getmp3.pro).mp3",
+            "applepay.mp3",
+            "ara-ara_-sound-effect_cq0SlXI.mp3",
+            "are-you-out-of-your-mind-greenscreen-change-quality-and-end-wont-cut-off_2.mp3",
+            "are-you-serious-right-neow-bro.mp3",
+            "Aura Farming Soundboard.mp3",
+            "aw-hell-nah-man.mp3",
+            "Awkward Moment.mp3",
+            "awkward-cricket-sound-effect.mp3",
+            "baby-laughing-meme.mp3",
+            "bad-to-the-bone-meme (1).mp3",
+            "bad-to-the-bone-meme.mp3",
+            "bark-fart_XRsy1HE.mp3",
+            "basicbeam_fire.mp3",
+            "bernyanyi-bernyayi-original.mp3",
+            "bing-chilling_fcdGgUc.mp3",
+            "bo-womp.mp3",
+            "bone-crack.mp3",
+            "Bonk - Sound Effect (HD) (320 kbps).mp3",
+            "brain-aneurysm.mp3",
+            "Bruh - Sound Effect (HD) (320 kbps).mp3",
+            "buy_1.mp3",
+            "Camera Shutter.mp3",
+            "candyland-cat-meme (1).mp3",
+            "candyland-cat-meme.mp3",
+            "Cartman Soundboard.mp3",
+            "cat-laugh-meme-1.mp3",
+            "cave1_gqB8CwT.mp3",
+            "ceeday-huh-sound-effect.mp3",
+            "Chicken Soundboard.mp3",
+            "Chili Chili Fart.mp3",
+            "chinese-rap-song.mp3",
+            "chuaks.mp3",
+            "coffindance.mp3",
+            "correct.mp3",
+            "crack_the_whip.mp3",
+            "deja-vu.mp3",
+            "dexter-meme.mp3",
+            "dingdong eat it up!!!.mp3",
+            "Discord Join.mp3",
+            "Discord notification.mp3",
+            "discord-notification.mp3",
+            "Distortion.mp3",
+            "DJ Stop 1.mp3",
+            "don-onepiece.mp3",
+            "Doo Doo Fart.mp3",
+            "dragon_ball_z_tele.mp3",
+            "dream-sound.mp3",
+            "drip-goku-meme-song-original-dragon-ball-super-music-clash-of-gods-in-description.mp3",
+            "du-bist-gut-genug.mp3",
+            "duck-toy-sound.mp3",
+            "dumb-patrick-meme.mp3",
+            "dun-dun-dun-sound-effect-brass_8nFBccR.mp3",
+            "eagle-rahhh.mp3",
+            "emotional-damage-meme.mp3",
+            "enemy-introduction-one-piece.mp3",
+            "enemy-spotted.mp3",
+            "english-or-spanish-song.mp3",
+            "error_CDOxCYm.mp3",
+            "espada-som.mp3",
+            "exploding-toilet-meme-funny.mp3",
+            "Explosion meme.mp3",
+            "faaah.mp3",
+            "fahhh-pump-sound.mp3",
+            "Fahhhh 2.mp3",
+            "Fart And Vomiting Infra.mp3",
+            "fart-meme-sound.mp3",
+            "fart-with-reverb.mp3",
+            "fasten_seatbelt_tone.mp3",
+            "fbi-open-up_dwLhIFf.mp3",
+            "feelings-matrika-main-version-43832-02-29.mp3",
+            "flashback-one-piece.mp3",
+            "flint-and-steel.mp3",
+            "fortnite-knocked-sound.mp3",
+            "french-meme-song.mp3",
+            "Funny Laughing 1.mp3",
+            "galaxy-meme (1).mp3",
+            "gay.mp3",
+            "gopgopgop.mp3",
+            "gta-san-andreas-abertura-oficial.mp3",
+            "gta-v-death-sound-effect-102.mp3",
+            "gyatt-kai-cenat.mp3",
+            "hd-epic-sax-gandalf-10-sec_f1uqKhm.mp3",
+            "heavenly.mp3",
+            "helicopter helicopter para kofer para kofer.mp3",
+            "helicopter-meme.mp3",
+            "Hello Otter.mp3",
+            "high pitch fahhh.mp3",
+            "hitmarker_2.mp3",
+            "hiyakkk.mp3",
+            "homer-lets-the-barts-out.mp3",
+            "honkai-herta-hudurin-kuru-kuru.mp3",
+            "hub-intro-sound.mp3",
+            "huh_37bAoRo.mp3",
+            "Hyper Distorted Illuminati Confirmed - MLG Sound Effect (HD) (320 kbps).mp3",
+            "im-a-furry-loud.mp3",
+            "indian-song.mp3",
+            "Indiana Jones.mp3",
+            "ive-got-this-faaaaaaaaahhhhh.mp3",
+            "japan-oppai-sound.mp3",
+            "katon.mp3",
+            "Kentut Fart.mp3",
+            "kerja-bagus-ff.mp3",
+            "Kids Cheering - Gaming Sound Effect (HD) (320 kbps).mp3",
+            "kobo-chamber-kontol.mp3",
+            "ksi-thick-of-it.mp3",
+            "kung-fu-panda-how-i-dont-know_7MTG6fw.mp3",
+            "lack-of-a-father-figure.mp3",
+            "laughter-short.mp3",
+            "let-me-know.mp3",
+            "loading-lost-connection-green-screen-with-sound-effect-2_K8HORkT.mp3",
+            "long-brain-fart.mp3",
+            "loud-clash-royale.mp3",
+            "Mail Naik Sepeda - Sound Effect Upin & Ipin (192).mp3",
+            "maju3.mp3",
+            "Mario Coin Sound - Sound Effect (HD).mp3",
+            "Meow Soundboard.mp3",
+            "Michael Jackson Soundboard.mp3",
+            "Mickey Mouse Soundboard.mp3",
+            "Minecraft Door (Open and Close) - Sound Effect (HD).mp3",
+            "Minecraft Eating - Sound Effect (HD) (320 kbps).mp3",
+            "Minecraft Fall Damage (Crack) - Sound Effect (HD) (320 kbps).mp3",
+            "minecraft_click.mp3",
+            "mongraal-shing-shing-sound-for-twitch.mp3",
+            "munch-sound-effect.mp3",
+            "music2.mp3",
+            "nani-meme-sound-effect.mp3",
+            "naruto-sad-music-instant.mp3",
+            "Nope (Construction Worker TF2) - Gaming Sound Effect (HD) (320 kbps).mp3",
+            "Nope Soundboard.mp3",
+            "Notifikasi iphone.mp3",
+            "nuke-bomb.mp3",
+            "o-bom-o-mal-e-o-feio-velho-oeste-desafio-dont-talk-duelo-desafio-armas.mp3",
+            "oh-lordy-jesus.mp3",
+            "oh-my-god-meme.mp3",
+            "oh-no-no-no-tik-tok-song-sound-effect.mp3",
+            "oh-shit_4.mp3",
+            "oi-oi-oe-oi-a-eye-eye.mp3",
+            "omni-man-are-you-sure (1).mp3",
+            "omni-man-are-you-sure.mp3",
+            "one-piece-angry.mp3",
+            "one-piece-brooks-laugh-15-minutes.mp3",
+            "one-piece-gulp.mp3",
+            "one-piece-ost-cornered-raid-host.mp3",
+            "one_piece_ringtone_free_ringtones_for_cell_phones.mp3",
+            "oooh-a-piece-of-candy.mp3",
+            "optimum-prides.mp3",
+            "Outro PUmpme KICK.mp3",
+            "Pennywise Soundboard.mp3",
+            "poco-x3-phone.mp3",
+            "pump-shotgun-fortnite-loud.mp3",
+            "Punch - Gaming Sound Effect (HD) (320 kbps).mp3",
+            "quiet-on-the-creek-saucy-santana.mp3",
+            "raaaah.mp3",
+            "rainbow-six-siege-quick-barricade-breach-audiotrimmer.mp3",
+            "ransom-gay-version.mp3",
+            "Rat dance Music.mp3",
+            "raul_drTKdMV.mp3",
+            "rdr2-low-honour-sound.mp3",
+            "relaxed_scene.mp3",
+            "ringtone-warkop-dki.mp3",
+            "rip-my-granny-loud-asf.mp3",
+            "rizz-sound-effect.mp3",
+            "rizz-sounds.mp3",
+            "roblox running.mp3",
+            "roblox-death-sound_1.mp3",
+            "romanceeeeeeeeeeeeee.mp3",
+            "Ruko jaraa.mp3",
+            "sad violin.mp3",
+            "sad-meow-song.mp3",
+            "samsung-estourado.mp3",
+            "samsung-spaceline-notification.mp3",
+            "Shah Rukh Khan Laughing.mp3",
+            "SHEESH SOUND EFFECT.mp3",
+            "shimmy-shimmy-ya-but-high-quality.mp3",
+            "sigma.mp3",
+            "slot-machine-jackpot-sound-effect.mp3",
+            "snapchat-message.mp3",
+            "snoopdoggmeme.mp3",
+            "snore-mimimimimimi (1).mp3",
+            "snore-mimimimimimi.mp3",
+            "sonic-spring.mp3",
+            "Spiderman Soundboard.mp3",
+            "spiderman-meme-song.mp3",
+            "spongebob-disappointed-sound-effect.mp3",
+            "spongebob-fail.mp3",
+            "spongebob-sad-song.mp3",
+            "strawberry-elephant-steal-a-brainrot.mp3",
+            "studio-audience-awwww-sound-fx.mp3",
+            "sukunas-ryoiki-tenkai.mp3",
+            "Super Mario Beedoo.mp3",
+            "Taco aBell Bell.mp3",
+            "taco-bell-bong-sfx.mp3",
+            "talking-bennnn-noo.mp3",
+            "tf2-bonk.mp3",
+            "thats-lapis.mp3",
+            "the_mountain-epic-build-137050.mp3",
+            "throwing-sound-effect-davemadson.mp3",
+            "ticking.mp3",
+            "tiki-tiki-boosted.mp3",
+            "tmpq7mpzzl9 (1).mp3",
+            "tmpq7mpzzl9.mp3",
+            "tmp_7901-951678082.mp3",
+            "transponder_snail.mp3",
+            "tung-tung-tung-sahur.mp3",
+            "Twangy Boing.mp3",
+            "uh.mp3",
+            "undertakers-bell_2UwFCIe.mp3",
+            "untitled_bmEjZi2.mp3",
+            "Valorant Loading Screen.mp3",
+            "valorant-theme-extended-mp3cut_TE5PFlz.mp3",
+            "very-loud-metal-pipe-drop.mp3",
+            "videoplayback_y6EZG5Z.mp3",
+            "vine boom.mp3",
+            "voando-em-velocidade-one-piece.mp3",
+            "wait-wait-wait-what-the-hell-legend-sound.mp3",
+            "Warning Siren meme.mp3",
+            "water-droplet-drip.mp3",
+            "we-are-charlie-kirk-phone.mp3",
+            "Wet_Fart_Meme_-_Sound_Effect_HD_(getmp3.pro).mp3",
+            "what da dog doin.mp3",
+            "what-bottom-text-meme-sanctuary-guardian-sound-effect-hd_tdDIUTg.mp3",
+            "what-the-hellllllllllll.mp3",
+            "white-tee-rizz.mp3",
+            "white-tees-rizz.mp3",
+            "whoosh.mp3",
+            "wtf-sound_AUXiDNl.mp3",
+            "y2mate.com - Acumalaka  sound effect.mp3",
+            "y2mate.com - Boy what the hell boy talking Tom meme.mp3",
+            "y2mate.com - gah dayum Extended sound.mp3",
+            "y2mate.com - he walk.mp3",
 
-        <!-- CARD 2 -->
-        <div class="sound-card">
-            <audio id="snd-explosion" src="explosion.mp3"></audio>
-            <button class="push-button btn-green" onclick="playSound('snd-explosion')"></button>
-            <div class="sound-title">Explosion</div>
-            <a href="explosion.mp3" download="Explosion.mp3" class="download-link">💾 Download</a>
-        </div>
+            
+        ];
 
-        <!-- CARD 3 -->
-        <div class="sound-card">
-            <audio id="snd-coin" src="coin.mp3"></audio>
-            <button class="push-button btn-blue" onclick="playSound('snd-coin')"></button>
-            <div class="sound-title">Coin</div>
-            <a href="coin.mp3" download="Coin.mp3" class="download-link">💾 Download</a>
-        </div>
+        const grid = document.getElementById('soundboard');
 
-    </div>
+        // This loop automatically creates the layout for every file in your list
+        soundFiles.forEach((filename, index) => {
+            // Clean up the filename to create a pretty title (removes ".mp3")
+            const title = filename.replace('.mp3', '');
+            const colorClass = `btn-${index % 4}`; // Cycles through the 4 button colors
+            const soundId = `snd-${index}`;
 
+            const card = document.createElement('div');
+            card.className = 'sound-card';
+            card.innerHTML = `
+                <audio id="${soundId}" src="${filename}"></audio>
+                <button class="push-button ${colorClass}" onclick="playSound('${soundId}')"></button>
+                <div class="sound-title">${title}</div>
+                <a href="${filename}" download="${filename}" class="download-link">💾 Download</a>
+            `;
+            grid.appendChild(card);
+        });
+
+        // Function to play sounds instantly from the beginning
+        function playSound(id) {
+            let sound = document.getElementById(id);
+            sound.currentTime = 0; 
+            sound.play();
+        }
+    </script>
 </body>
 </html>
