@@ -24,7 +24,6 @@
             color: #ecc94b;
             margin-bottom: 40px;
         }
-        /* Grid Layout for Sound Cards */
         .soundboard-grid {
             display: flex;
             flex-wrap: wrap;
@@ -33,7 +32,6 @@
             max-width: 900px;
             margin: 0 auto;
         }
-        /* Box container for each button */
         .sound-card {
             background: #16213e;
             border: 3px solid #4f46e5;
@@ -43,7 +41,6 @@
             box-shadow: 0 8px 0 #312e81;
             transition: all 0.1s ease;
         }
-        /* Physical Push Button Look */
         .push-button {
             display: inline-block;
             width: 80px;
@@ -55,7 +52,6 @@
             transition: transform 0.1s, box-shadow 0.1s;
             margin-bottom: 15px;
         }
-        /* Button Press Animation */
         .push-button:active {
             transform: translateY(6px);
             box-shadow: 0 2px 0 rgba(0,0,0,0.4);
@@ -71,7 +67,6 @@
             font-size: 1.1rem;
             margin-bottom: 10px;
         }
-        /* Direct Download Button */
         .download-link {
             display: inline-block;
             background-color: #222;
@@ -90,7 +85,6 @@
         }
     </style>
     <script>
-        // Smooth function to play sound from the beginning instantly upon click
         function playSound(id) {
             let sound = document.getElementById(id);
             sound.currentTime = 0; 
@@ -107,34 +101,27 @@
 
         <!-- CARD 1 -->
         <div class="sound-card">
-            <audio id="snd-laser" src="soundfx/laser.mp3"></audio>
+            <!-- No 'soundfx/' needed in the src anymore! -->
+            <audio id="snd-laser" src="laser.mp3"></audio>
             <button class="push-button btn-red" onclick="playSound('snd-laser')"></button>
             <div class="sound-title">Laser</div>
-            <a href="soundfx/laser.mp3" download="Laser.mp3" class="download-link">💾 Download</a>
+            <a href="laser.mp3" download="Laser.mp3" class="download-link">💾 Download</a>
         </div>
 
         <!-- CARD 2 -->
         <div class="sound-card">
-            <audio id="snd-explosion" src="soundfx/explosion.mp3"></audio>
+            <audio id="snd-explosion" src="explosion.mp3"></audio>
             <button class="push-button btn-green" onclick="playSound('snd-explosion')"></button>
             <div class="sound-title">Explosion</div>
-            <a href="soundfx/explosion.mp3" download="Explosion.mp3" class="download-link">💾 Download</a>
+            <a href="explosion.mp3" download="Explosion.mp3" class="download-link">💾 Download</a>
         </div>
 
         <!-- CARD 3 -->
         <div class="sound-card">
-            <audio id="snd-coin" src="soundfx/coin.mp3"></audio>
+            <audio id="snd-coin" src="coin.mp3"></audio>
             <button class="push-button btn-blue" onclick="playSound('snd-coin')"></button>
             <div class="sound-title">Coin</div>
-            <a href="soundfx/coin.mp3" download="Coin.mp3" class="download-link">💾 Download</a>
-        </div>
-
-        <!-- CARD 4 -->
-        <div class="sound-card">
-            <audio id="snd-chime" src="soundfx/chime.mp3"></audio>
-            <button class="push-button btn-yellow" onclick="playSound('snd-chime')"></button>
-            <div class="sound-title">Chime</div>
-            <a href="soundfx/chime.mp3" download="Chime.mp3" class="download-link">💾 Download</a>
+            <a href="coin.mp3" download="Coin.mp3" class="download-link">💾 Download</a>
         </div>
 
     </div>
