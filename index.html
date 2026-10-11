@@ -3,40 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🕹️ My Epic Soundboard</title>
+    <title>🕹️ Arcade Soundboard</title>
     <style>
-        /* Fun arcade-style theme */
+        /* Retro Arcade Styling */
         body {
             background-color: #1a1a2e;
             color: #fff;
             font-family: 'Courier New', Courier, monospace;
             text-align: center;
             padding: 40px 20px;
+            margin: 0;
         }
-
         h1 {
             font-size: 3rem;
             color: #00f2fe;
             text-shadow: 0 0 10px #00f2fe;
             margin-bottom: 5px;
         }
-
         .subtitle {
             color: #ecc94b;
             margin-bottom: 40px;
         }
-
-        /* The grid holding our sound cards */
+        /* Grid Layout for Sound Cards */
         .soundboard-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 25px;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
-
-        /* Individual sound box */
+        /* Box container for each button */
         .sound-card {
             background: #16213e;
             border: 3px solid #4f46e5;
@@ -46,8 +43,7 @@
             box-shadow: 0 8px 0 #312e81;
             transition: all 0.1s ease;
         }
-
-        /* The physical push button */
+        /* Physical Push Button Look */
         .push-button {
             display: inline-block;
             width: 80px;
@@ -55,74 +51,90 @@
             border-radius: 50%;
             border: none;
             cursor: pointer;
-            outline: none;
-            margin-bottom: 15px;
             box-shadow: 0 8px 0 rgba(0,0,0,0.4);
             transition: transform 0.1s, box-shadow 0.1s;
+            margin-bottom: 15px;
         }
-
-        /* Button Colors */
-        .btn-red { background: #ff4757; border: 4px solid #ff6b81; }
-        .btn-green { background: #2ed573; border: 4px solid #7bed9f; }
-        .btn-blue { background: #1e90ff; border: 4px solid #70a1ff; }
-
-        /* Physical click effect */
+        /* Button Press Animation */
         .push-button:active {
             transform: translateY(6px);
             box-shadow: 0 2px 0 rgba(0,0,0,0.4);
         }
+        /* Arcade Colors */
+        .btn-red { background: #ff4757; border: 4px solid #ff6b81; }
+        .btn-green { background: #2ed573; border: 4px solid #7bed9f; }
+        .btn-blue { background: #1e90ff; border: 4px solid #70a1ff; }
+        .btn-yellow { background: #ffa502; border: 4px solid #eccc68; }
 
         .sound-title {
             font-weight: bold;
             font-size: 1.1rem;
             margin-bottom: 10px;
         }
-
-        /* Fun download link */
+        /* Direct Download Button */
         .download-link {
-            display: block;
+            display: inline-block;
+            background-color: #222;
             color: #00f2fe;
             text-decoration: none;
             font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: 1px solid #4f46e5;
             margin-top: 10px;
+            transition: 0.2s;
         }
         .download-link:hover {
-            text-decoration: underline;
-            color: #fff;
+            background-color: #00f2fe;
+            color: #1a1a2e;
         }
     </style>
+    <script>
+        // Smooth function to play sound from the beginning instantly upon click
+        function playSound(id) {
+            let sound = document.getElementById(id);
+            sound.currentTime = 0; 
+            sound.play();
+        }
+    </script>
 </head>
 <body>
 
     <h1>🕹️ ARCADE SOUNDBOARD</h1>
-    <p class="subtitle">Push to play! Click download to keep it!</p>
+    <p class="subtitle">Push to play! Click download to keep the file!</p>
 
     <div class="soundboard-grid">
 
-        <!-- SOUND 1 -->
+        <!-- CARD 1 -->
         <div class="sound-card">
-            <!-- Audio tag holds the actual sound file -->
-            <audio id="laser-sound" src="sounds/laser.mp3"></audio>
-            <!-- Clicking this physical button plays the audio ID linked above -->
-            <button class="push-button btn-red" onclick="document.getElementById('laser-sound').play()"></button>
+            <audio id="snd-laser" src="soundfx/laser.mp3"></audio>
+            <button class="push-button btn-red" onclick="playSound('snd-laser')"></button>
             <div class="sound-title">Laser</div>
-            <a href="sounds/laser.mp3" download="Laser_Effect.mp3" class="download-link">💾 Download</a>
+            <a href="soundfx/laser.mp3" download="Laser.mp3" class="download-link">💾 Download</a>
         </div>
 
-        <!-- SOUND 2 -->
+        <!-- CARD 2 -->
         <div class="sound-card">
-            <audio id="boom-sound" src="sounds/boom.mp3"></audio>
-            <button class="push-button btn-green" onclick="document.getElementById('boom-sound').play()"></button>
+            <audio id="snd-explosion" src="soundfx/explosion.mp3"></audio>
+            <button class="push-button btn-green" onclick="playSound('snd-explosion')"></button>
             <div class="sound-title">Explosion</div>
-            <a href="sounds/boom.mp3" download="Explosion_Effect.mp3" class="download-link">💾 Download</a>
+            <a href="soundfx/explosion.mp3" download="Explosion.mp3" class="download-link">💾 Download</a>
         </div>
 
-        <!-- SOUND 3 -->
+        <!-- CARD 3 -->
         <div class="sound-card">
-            <audio id="coin-sound" src="sounds/coin.mp3"></audio>
-            <button class="push-button btn-blue" onclick="document.getElementById('coin-sound').play()"></button>
-            <div class="sound-title">Coin Up</div>
-            <a href="sounds/coin.mp3" download="Coin_Effect.mp3" class="download-link">💾 Download</a>
+            <audio id="snd-coin" src="soundfx/coin.mp3"></audio>
+            <button class="push-button btn-blue" onclick="playSound('snd-coin')"></button>
+            <div class="sound-title">Coin</div>
+            <a href="soundfx/coin.mp3" download="Coin.mp3" class="download-link">💾 Download</a>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="sound-card">
+            <audio id="snd-chime" src="soundfx/chime.mp3"></audio>
+            <button class="push-button btn-yellow" onclick="playSound('snd-chime')"></button>
+            <div class="sound-title">Chime</div>
+            <a href="soundfx/chime.mp3" download="Chime.mp3" class="download-link">💾 Download</a>
         </div>
 
     </div>
